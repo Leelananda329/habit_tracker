@@ -12,5 +12,5 @@ As a user, I want to receive a message if I enter the wrong username or password
 **Story Points:** 2
 
 **Notes:**
-	•	Error message should not reveal which field (username or password) was incorrect for security reasons.
-	•	Consider accessibility (screen readers, color contrast for error text).
+	1.	Error message should not reveal which field (username or password) was incorrect for security reasons.
+	2.	Consider accessibility (screen readers, color contrast for error text).
