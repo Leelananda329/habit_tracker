@@ -3,7 +3,7 @@
 _As a user, I want to register with my name, username, age, and country, so that I can create an account and access the habit tracking features._  
 
 **Acceptance Criteria:**  
-1. User can enter **name**, **username**, **age**, and **country** in the registration form.  
+1. User can enter **name**, **username**, **password**, **confirm password**, **age**, and **country** in the registration form.  
 2. Username must be **unique** (system should reject duplicates).  
 3. Age must be a **valid number** and not left empty.  
 4. Country should be selected from a **dropdown list**.  
@@ -13,7 +13,7 @@ _As a user, I want to register with my name, username, age, and country, so that
 
 **Priority:** High  
 
-**Story Points:** 5  
+**Story Points:** 7  
 
 **Notes:**  
 - The user is able to register; however, due to security constraints, the credentials are not saved in the browser cache but are removed once the user logs out. Therefore, the user is unable to log in with their own credentials. The only way to log in is with the default username and password.  
