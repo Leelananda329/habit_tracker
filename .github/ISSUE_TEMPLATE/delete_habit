@@ -1,0 +1,12 @@
+**Title:** Delete a habit <br>
+**Description:** **As a** user **I want** to delete existing habits  
+**So that** I can keep my habits up to date  
+
+**Acceptance Criteria:**  
+- A “Delete” option is available for each habit  
+- Confirmation prompt is shown before deleting a habit  
+- Deleted habits are permanently removed from the list and database  
+- Remaining habits are displayed correctly after deletion  
+
+**Priority:** High  
+**Story Points:** 4  
