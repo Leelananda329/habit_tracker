@@ -1,0 +1,12 @@
+**Title:** View personal information <br>
+**Description:** **As a** user **I want** to view my saved name, username, age, and country on my profile page  
+**So that** I can see the details I provided during registration  
+
+**Acceptance Criteria:**
+- The profile page displays the user’s name, username, age, and country  
+- Information matches the data entered during registration  
+- Data is read-only by default until “Edit” is selected  
+
+**Priority:** High  
+**Story Points:** 4  
+
