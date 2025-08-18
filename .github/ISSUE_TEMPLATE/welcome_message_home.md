@@ -1,5 +1,6 @@
-
-## 1. View welcome message
+## Home Page
+**Title:** View welcome message
+**Description: **
 **As a** user  
 **I want** to see a personalized welcome message with my name on the homepage  
 **So that** I feel recognized and can confirm I am logged into the correct account  
