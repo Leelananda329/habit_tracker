@@ -1,7 +1,6 @@
 ## Home Page
 **Title:** Display weekly progress <br>
-**Description:** **As a** user  
-**I want** to see my daily progress for each habit on the homepage  
+**Description:** **As a** user **I want** to see my daily progress for each habit on the homepage  
 **So that** I can easily monitor my progress  
 
 **Acceptance Criteria:**
