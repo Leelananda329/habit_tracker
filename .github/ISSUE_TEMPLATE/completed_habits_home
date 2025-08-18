@@ -1,0 +1,12 @@
+## Home Page
+**Title:** View Completed Habits <br>
+**Description:** **As a** user **I want** to see a section for completed habits on the homepage  
+**So that** I can track what I have already achieved  
+
+**Acceptance Criteria:**
+- A “Completed Habits” section is visible on the homepage  
+- It lists habits the user has marked as complete  
+- The section updates in real time when new habits are completed  
+
+**Priority:** Medium  
+**Story Points:** 2  
