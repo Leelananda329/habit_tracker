@@ -10,7 +10,6 @@ class HabitDetailsScreen extends StatefulWidget {
   @override
   State<HabitDetailsScreen> createState() => _HabitDetailsScreenState();
 }
-
 class _HabitDetailsScreenState extends State<HabitDetailsScreen> {
   @override
   Widget build(BuildContext context) {
