@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:habit_tracker/app_utils/app_utils.dart';
+import 'package:habit_tracker/services/registration_service.dart';
 import 'habit_tracker_screen.dart';
+import 'local_storage.dart';
 import 'login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -12,8 +14,12 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+
+
   final _nameController = TextEditingController();
   final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _isPasswordVisible = false;
   double _age = 25; // Default age set to 25
   String _country = 'United States';
   List<String> _countries = [];
@@ -73,18 +79,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void _register() async {
     final name = _nameController.text;
     final username = _usernameController.text;
+    final password = _passwordController.text;
 
-    if (username.isEmpty || name.isEmpty) {
-      _showToast('Please fill in all fields');
-      return;
-    }
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => HabitTrackerScreen(username: username),
-      ),
+
+    LocalStorage storage=LocalStorage();
+    storage.setName(name);
+    storage.setUsername(name);
+
+
+    final service = RegistrationService();
+
+    await service.registerUser(
+      name: name,
+      username: username,
+      password: password,
+      age: _age,
+      country: _country,
+      habits: selectedHabits,
     );
+
+    final result = await service.getUserWithHabits(username);
+    print("User: ${result?['user']}");
+    print("Habits: ${result?['habits']}");
+    if(result!=null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HabitTrackerScreen(),
+        ),
+      );
+    }
   }
 
   @override
@@ -130,6 +155,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 _buildInputField(
                     _usernameController, 'Username', Icons.alternate_email),
                 const SizedBox(height: 10),
+                _buildPasswordInputField(),
+                const SizedBox(height: 10),
                 Text('Age: ${_age.round()}',
                     style: const TextStyle(color: Colors.white, fontSize: 18)),
                 Slider(
@@ -156,7 +183,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: availableHabits.map((habit) {
                     final isSelected = selectedHabits.contains(habit);
                     return GestureDetector(
-                      onTap: () => null,
+                      onTap: () {
+                        setState(() {
+                          if (isSelected) {
+                            selectedHabits.remove(habit);
+                          } else {
+                            selectedHabits.add(habit);
+                          }
+                        });
+                      },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
@@ -181,7 +216,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const SizedBox(height: 20),
                 Center(
                   child: ElevatedButton(
-                    onPressed: _register,
+                    onPressed: (){
+                      if(validetion())
+                      _register();
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue.shade600,
                       shape: RoundedRectangleBorder(
@@ -228,6 +266,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  Widget _buildPasswordInputField() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: TextField(
+        controller: _passwordController,
+        obscureText: !_isPasswordVisible,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.lock, color: Colors.blue.shade700),
+          hintText: 'Password',
+          border: InputBorder.none,
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          suffixIcon: IconButton(
+            icon: Icon(
+              _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+              color: Colors.blue.shade700,
+            ),
+            onPressed: () {
+              setState(() {
+                _isPasswordVisible = !_isPasswordVisible;
+              });
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildCountryDropdown() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -253,5 +322,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
         },
       ),
     );
+  }
+
+  bool validetion() {
+    if (_nameController.text.isEmpty) {
+      _showToast('Please enter your name');
+      return false;
+    }
+    if (_usernameController.text.isEmpty) {
+      _showToast('Please enter your username');
+      return false;
+    }
+    if (_passwordController.text.isEmpty) {
+      _showToast('Please enter your password');
+      return false;
+    }
+    if (_passwordController.text.length < 6) {
+      _showToast('Password must be at least 6 characters long');
+      return false;
+    }
+    return true;
   }
 }

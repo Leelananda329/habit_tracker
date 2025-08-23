@@ -1,5 +1,11 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:habit_tracker/local_storage.dart';
+
+import 'app_database/app_database.dart';
+import 'app_utils/app_utils.dart';
 import 'habit_tracker_screen.dart';
 import 'register_screen.dart';
 
@@ -17,21 +23,34 @@ class _LoginScreenState extends State<LoginScreen> {
   // Default credentials
   final String defaultUsername = 'testuser';
   final String defaultPassword = 'password123';
+  bool _obscurePassword = true;
+  final db = AppDatabase();
 
-  void _login() {
-    // The login logic goes here
-    print("login logic here");
 
-    final username = _usernameController.text;
-    final password = _passwordController.text;
 
-    if (username == defaultUsername && password == defaultPassword) {
+  Future<void> _login() async {
+    AppUtils().showProgressDialog(context);
+    final username = _usernameController.text.trim();
+    final password = _passwordController.text.trim();
+
+    final user=await LocalStorage().getUserDetails(username);
+    print("user details ${jsonEncode(user)}");
+    if (username == user?.username && password == user?.password) {
+      LocalStorage storage=LocalStorage();
+      storage.setName(user?.name??'');
+      await storage.setUsername(username);
+      AppUtils().hideProgressDialog(context);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => HabitTrackerScreen(username: username),
+          builder: (context) => HabitTrackerScreen(),
         ),
       );
+
+      AppUtils().showSuccessToast('Successfully LogIn!');
+    }else{
+      AppUtils().showErrorToast('Invalid username or password');
+      AppUtils().hideProgressDialog(context);
     }
   }
 
@@ -86,11 +105,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   child: TextField(
                     controller: _passwordController,
-                    obscureText: true,
+                    obscureText: _obscurePassword,
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.lock, color: Colors.blue.shade700),
                       hintText: 'Enter Password',
                       border: InputBorder.none,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                          color: Colors.blue.shade700,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        },
+                      ),
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 15),
                     ),
@@ -111,7 +141,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: _login,
+                  onPressed: (){
+                    if(validation()) {
+                      _login();
+                    }
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue.shade600,
                     shape: RoundedRectangleBorder(
@@ -162,5 +196,18 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  bool validation() {
+    if (_usernameController.text.isEmpty) {
+      AppUtils().showErrorToast('Please enter username');
+      return false;
+    }
+
+    if (_passwordController.text.isEmpty) {
+      AppUtils().showErrorToast('Please enter password');
+      return false;
+    }
+    return true;
   }
 }
