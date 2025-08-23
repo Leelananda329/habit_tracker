@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 import 'package:habit_tracker/app_database/app_database.dart';
 import 'package:habit_tracker/constants/app_constants.dart';
+import 'package:habit_tracker/habits/add_habit_screen.dart';
 import 'package:habit_tracker/local_storage.dart';
 import 'package:habit_tracker/services/registration_service.dart';
 
-import 'app_colors/app_color.dart';
+import '../app_colors/app_color.dart';
 import 'habit_details_screen.dart';
 
 class HabitTrackerScreen extends StatefulWidget {
@@ -272,21 +274,23 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
           ),
         ],
       ),
-      floatingActionButton: todoHabitsData?.isEmpty==true
-          ? FloatingActionButton(
-              onPressed: () {},
+      floatingActionButton:  FloatingActionButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>AddHabitScreen()));
+              },
               backgroundColor: Colors.blue.shade700,
               tooltip: 'Add Habits',
               child: const Icon(Icons.add,color: Colors.white,),
-            )
-          : null,
+            ),
     );
   }
 
   Widget _buildHabitCard(Habit habit) {
+    // Generate a random color for the card
+    final randomColor = Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(0.5);
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      color: Colors.white,
+      color: randomColor, // Use the random color
       child: GestureDetector(
         onTap: (){
           Navigator.push(context,MaterialPageRoute(builder: (context) => HabitDetailsScreen(habit)));
@@ -297,7 +301,7 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
             title: Text(
               habit.title.toUpperCase(),
               style: const TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),

@@ -1,12 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:habit_tracker/local_storage.dart';
-
 import 'app_database/app_database.dart';
 import 'app_utils/app_utils.dart';
-import 'habit_tracker_screen.dart';
+import 'habits/habit_tracker_screen.dart';
 import 'register_screen.dart';
 
 class LoginScreen extends StatefulWidget {

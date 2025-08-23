@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:habit_tracker/app_utils/app_utils.dart';
 import 'package:habit_tracker/services/registration_service.dart';
-import 'habit_tracker_screen.dart';
+import 'habits/habit_tracker_screen.dart';
 import 'local_storage.dart';
 import 'login_screen.dart';
 
