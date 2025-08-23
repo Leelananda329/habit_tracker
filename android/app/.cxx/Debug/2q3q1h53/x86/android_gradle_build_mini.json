@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/LeelanandaReddy/development/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/LeelanandaReddy/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/LeelanandaReddy/Documents/Flutter/habit_tracker/android/app/.cxx/Debug/2q3q1h53/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/LeelanandaReddy/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/LeelanandaReddy/Documents/Flutter/habit_tracker/android/app/.cxx/Debug/2q3q1h53/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}
