@@ -28,12 +28,15 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
   List<Habit>? completedHobitData;
   final AppDatabase db = AppDatabase();
 
+  int userId=-1;
+
   @override
   void initState() {
 
-    name=LocalStorage().getName()??'Habits';
+    name=LocalStorage().getName()??'';
     userName=LocalStorage().getUsername()??'';
-     getSelectedHobits(userName);
+    userId=LocalStorage().getUserID()??-1;
+     getSelectedHobits();
 
     super.initState();
   }
@@ -43,7 +46,7 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
     final updatedHabit = habit.copyWith(isCompleted: completed);
     await db.updateHabit(updatedHabit);
     // Refresh the lists after the database update
-    await getSelectedHobits(userName); // This will call setState
+    await getSelectedHobits(); // This will call setState
   }
 
   
@@ -290,7 +293,7 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
     final randomColor = Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(0.5);
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      color: randomColor, // Use the random color
+      color: _habitColors[habit.color], // Use the random color
       child: GestureDetector(
         onTap: (){
           Navigator.push(context,MaterialPageRoute(builder: (context) => HabitDetailsScreen(habit)));
@@ -315,8 +318,21 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
     );
   }
 
-  Future<void> getSelectedHobits(String username) async {
-    final habits = await db.getHabitsForUsername(username);
+  final Map<String, Color> _habitColors = {
+    'Amber': Colors.amber,
+    'Red Accent': Colors.redAccent,
+    'Light Blue': Colors.lightBlue,
+    'Light Green': Colors.lightGreen,
+    'Purple Accent': Colors.purpleAccent,
+    'Orange': Colors.orange,
+    'Teal': Colors.teal,
+    'Deep Purple': Colors.deepPurple,
+  };
+
+  Future<void> getSelectedHobits() async {
+
+
+    final habits = await db.getHabitsByID(userId);
     if (habits != null) {
       // Assuming 'habits' is a List<Habit>
       setState(() {

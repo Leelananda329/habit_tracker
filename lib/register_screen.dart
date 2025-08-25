@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:habit_tracker/services/registration_service.dart';
+import 'country_list.dart';
 import 'habits/habit_tracker_screen.dart';
 import 'local_storage.dart';
 import 'login_screen.dart';
@@ -22,7 +23,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
   double _age = 25; // Default age set to 25
   String _country = 'United States';
   List<String> _countries = [];
-  List<String> selectedHabits = [];
+
+  Map<String, String> selectedHabitsWithColors = {};
+
+  bool _isLoading=false;
+  final Map<String, Color> _habitColors = {
+    'Amber': Colors.amber,
+    'Red Accent': Colors.redAccent,
+    'Light Blue': Colors.lightBlue,
+    'Light Green': Colors.lightGreen,
+    'Purple Accent': Colors.purpleAccent,
+    'Orange': Colors.orange,
+    'Teal': Colors.teal,
+    'Deep Purple': Colors.deepPurple,
+  };
+
+  String _getNextColorName() {
+    // Simple logic to cycle through colors
+    return _habitColors.keys.toList()[selectedHabitsWithColors.length % _habitColors.length];
+  }
   List<String> availableHabits = [
     'Wake Up Early',
     'Workout',
@@ -39,29 +58,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void initState() {
     super.initState();
-    _fetchCountries();
+    _isLoading=true;
+    _loadCountries();
   }
 
-  Future<void> _fetchCountries() async {
-    List<String> subsetCountries = [
-      'United States',
-      'Canada',
-      'United Kingdom',
-      'Australia',
-      'India',
-      'Germany',
-      'France',
-      'Japan',
-      'China',
-      'Brazil',
-      'South Africa'
-    ];
 
-    setState(() {
-      _countries = subsetCountries;
-      _countries.sort();
-      _country = _countries.isNotEmpty ? _countries[0] : 'United States';
-    });
+  Future<void> _loadCountries() async {
+    try {
+      List<String> countries = await fetchCountries();
+
+
+      setState(() {
+        _countries = countries;
+        _countries.sort();
+        _country = _countries.isNotEmpty ? _countries[0] : 'India';
+        _isLoading=false;
+      });
+    } catch (e) {
+      // Handle error
+      _showToast('Error fetching countries');
+    }
   }
 
   void _showToast(String message) {
@@ -77,8 +93,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void _register() async {
     final name = _nameController.text;
-    final username = _usernameController.text;
-    final password = _passwordController.text;
+    final username = _usernameController.text.trim();
+    final password = _passwordController.text.trim();
 
 
 
@@ -95,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       password: password,
       age: _age,
       country: _country,
-      habits: selectedHabits,
+      habits: selectedHabitsWithColors, // Pass only habit names
     );
 
     final result = await service.getUserWithHabits(username);
@@ -134,7 +150,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
           },
         ),
       ),
-      body: Container(
+      body: Stack(children: [
+
+      Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.blue.shade700, Colors.blue.shade900],
@@ -180,14 +198,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   spacing: 10,
                   runSpacing: 10,
                   children: availableHabits.map((habit) {
-                    final isSelected = selectedHabits.contains(habit);
+                    final isSelected = selectedHabitsWithColors.containsKey(habit);
                     return GestureDetector(
                       onTap: () {
                         setState(() {
                           if (isSelected) {
-                            selectedHabits.remove(habit);
+                            selectedHabitsWithColors.remove(habit);
                           } else {
-                            selectedHabits.add(habit);
+                            String nextColorName = _getNextColorName();
+                            selectedHabitsWithColors[habit] = nextColorName;
                           }
                         });
                       },
@@ -196,7 +215,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
                           color:
-                              isSelected ? Colors.blue.shade600 : Colors.white,
+                              isSelected ? _habitColors[selectedHabitsWithColors[habit]] : Colors.white,
+                          // color:
+                          //     isSelected ? Colors.blue.shade600 : Colors.white,
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(color: Colors.blue.shade700),
                         ),
@@ -242,6 +263,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
       ),
+      if (_isLoading)
+        const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(
+                color: Colors.blue,
+                backgroundColor: Colors.white,
+                strokeWidth: 5,
+              ),
+              SizedBox(height: 10),
+              Text("Loading...", style: TextStyle(color: Colors.black, fontSize: 16)),
+            ],
+          ),
+        )],),
     );
   }
 

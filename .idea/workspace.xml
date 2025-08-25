@@ -4,21 +4,24 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6f8a1a8-61d0-4f80-b065-edc8ca002152" name="Changes" comment="pushed home screen changes and local storage">
-      <change afterPath="$PROJECT_DIR$/Develop User Stories/home_screen_evidence.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Develop User Stories/login_screen_evidence.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Develop User Stories/signup_screen_evidence.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/habits/add_habit_screen.dart" afterDir="false" />
+    <list default="true" id="c6f8a1a8-61d0-4f80-b065-edc8ca002152" name="Changes" comment="evidence and add habit screen">
+      <change afterPath="$PROJECT_DIR$/Develop User Stories/evidence-integrateScreen-persistence.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Develop User Stories/evidence-persistence.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/country_list.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/arm64-v8a/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/arm64-v8a/configure_fingerprint.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/armeabi-v7a/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/armeabi-v7a/configure_fingerprint.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/x86/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/x86/configure_fingerprint.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/x86_64/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/x86_64/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/habit_details_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/habits/habit_details_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/habit_tracker_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/habits/habit_tracker_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app_database/app_database.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app_database/app_database.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app_database/app_database.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app_database/app_database.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/habits/add_habit_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/habits/add_habit_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/habits/habit_tracker_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/habits/habit_tracker_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/local_storage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/local_storage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/register_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/register_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/registration_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/registration_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/tables/habits_table.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/tables/habits_table.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,6 +87,7 @@
     "ScreenshotViewer.SavePath": "/Users/LeelanandaReddy/Desktop",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "main",
     "io.flutter.reload.alreadyRun": "true",
@@ -116,7 +120,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755945406827</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="evidence and add habit screen">
+      <option name="closed" value="true" />
+      <created>1755951402416</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1755951402416</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -125,8 +137,20 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
     </layout>
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="pushed home screen changes and local storage" />
-    <option name="LAST_COMMIT_MESSAGE" value="pushed home screen changes and local storage" />
+    <MESSAGE value="evidence and add habit screen" />
+    <option name="LAST_COMMIT_MESSAGE" value="evidence and add habit screen" />
   </component>
 </project>

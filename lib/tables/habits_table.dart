@@ -9,4 +9,5 @@ class HabitsTable extends Table {
   TextColumn get title => text()();
   BoolColumn get isCompleted => boolean().withDefault(const Constant(false))();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  TextColumn get color => text()();
 }

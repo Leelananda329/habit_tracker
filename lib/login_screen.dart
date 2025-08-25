@@ -30,11 +30,12 @@ class _LoginScreenState extends State<LoginScreen> {
     final username = _usernameController.text.trim();
     final password = _passwordController.text.trim();
 
-    final user=await LocalStorage().getUserDetails(username);
+    final user = await db.getUserByUsername(username);
     print("user details ${jsonEncode(user)}");
-    if (username == user?.username && password == user?.password) {
+    if (username == user?.username.trim() && password == user?.password.trim()) {
       LocalStorage storage=LocalStorage();
       storage.setName(user?.name??'');
+      storage.setUserID(user?.id??-1);
       await storage.setUsername(username);
       AppUtils().hideProgressDialog(context);
       Navigator.pushReplacement(

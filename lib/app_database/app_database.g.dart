@@ -385,9 +385,14 @@ class $HabitsTableTable extends HabitsTable
       type: DriftSqlType.dateTime,
       requiredDuringInsert: false,
       defaultValue: currentDateAndTime);
+  static const VerificationMeta _colorMeta = const VerificationMeta('color');
+  @override
+  late final GeneratedColumn<String> color = GeneratedColumn<String>(
+      'color', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, userId, title, isCompleted, createdAt];
+      [id, userId, title, isCompleted, createdAt, color];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -423,6 +428,12 @@ class $HabitsTableTable extends HabitsTable
       context.handle(_createdAtMeta,
           createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
     }
+    if (data.containsKey('color')) {
+      context.handle(
+          _colorMeta, color.isAcceptableOrUnknown(data['color']!, _colorMeta));
+    } else if (isInserting) {
+      context.missing(_colorMeta);
+    }
     return context;
   }
 
@@ -442,6 +453,8 @@ class $HabitsTableTable extends HabitsTable
           .read(DriftSqlType.bool, data['${effectivePrefix}is_completed'])!,
       createdAt: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      color: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}color'])!,
     );
   }
 
@@ -457,12 +470,14 @@ class Habit extends DataClass implements Insertable<Habit> {
   final String title;
   final bool isCompleted;
   final DateTime createdAt;
+  final String color;
   const Habit(
       {required this.id,
       required this.userId,
       required this.title,
       required this.isCompleted,
-      required this.createdAt});
+      required this.createdAt,
+      required this.color});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -471,6 +486,7 @@ class Habit extends DataClass implements Insertable<Habit> {
     map['title'] = Variable<String>(title);
     map['is_completed'] = Variable<bool>(isCompleted);
     map['created_at'] = Variable<DateTime>(createdAt);
+    map['color'] = Variable<String>(color);
     return map;
   }
 
@@ -481,6 +497,7 @@ class Habit extends DataClass implements Insertable<Habit> {
       title: Value(title),
       isCompleted: Value(isCompleted),
       createdAt: Value(createdAt),
+      color: Value(color),
     );
   }
 
@@ -493,6 +510,7 @@ class Habit extends DataClass implements Insertable<Habit> {
       title: serializer.fromJson<String>(json['title']),
       isCompleted: serializer.fromJson<bool>(json['isCompleted']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      color: serializer.fromJson<String>(json['color']),
     );
   }
   @override
@@ -504,6 +522,7 @@ class Habit extends DataClass implements Insertable<Habit> {
       'title': serializer.toJson<String>(title),
       'isCompleted': serializer.toJson<bool>(isCompleted),
       'createdAt': serializer.toJson<DateTime>(createdAt),
+      'color': serializer.toJson<String>(color),
     };
   }
 
@@ -512,13 +531,15 @@ class Habit extends DataClass implements Insertable<Habit> {
           int? userId,
           String? title,
           bool? isCompleted,
-          DateTime? createdAt}) =>
+          DateTime? createdAt,
+          String? color}) =>
       Habit(
         id: id ?? this.id,
         userId: userId ?? this.userId,
         title: title ?? this.title,
         isCompleted: isCompleted ?? this.isCompleted,
         createdAt: createdAt ?? this.createdAt,
+        color: color ?? this.color,
       );
   Habit copyWithCompanion(HabitsTableCompanion data) {
     return Habit(
@@ -528,6 +549,7 @@ class Habit extends DataClass implements Insertable<Habit> {
       isCompleted:
           data.isCompleted.present ? data.isCompleted.value : this.isCompleted,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      color: data.color.present ? data.color.value : this.color,
     );
   }
 
@@ -538,13 +560,15 @@ class Habit extends DataClass implements Insertable<Habit> {
           ..write('userId: $userId, ')
           ..write('title: $title, ')
           ..write('isCompleted: $isCompleted, ')
-          ..write('createdAt: $createdAt')
+          ..write('createdAt: $createdAt, ')
+          ..write('color: $color')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, userId, title, isCompleted, createdAt);
+  int get hashCode =>
+      Object.hash(id, userId, title, isCompleted, createdAt, color);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -553,7 +577,8 @@ class Habit extends DataClass implements Insertable<Habit> {
           other.userId == this.userId &&
           other.title == this.title &&
           other.isCompleted == this.isCompleted &&
-          other.createdAt == this.createdAt);
+          other.createdAt == this.createdAt &&
+          other.color == this.color);
 }
 
 class HabitsTableCompanion extends UpdateCompanion<Habit> {
@@ -562,12 +587,14 @@ class HabitsTableCompanion extends UpdateCompanion<Habit> {
   final Value<String> title;
   final Value<bool> isCompleted;
   final Value<DateTime> createdAt;
+  final Value<String> color;
   const HabitsTableCompanion({
     this.id = const Value.absent(),
     this.userId = const Value.absent(),
     this.title = const Value.absent(),
     this.isCompleted = const Value.absent(),
     this.createdAt = const Value.absent(),
+    this.color = const Value.absent(),
   });
   HabitsTableCompanion.insert({
     this.id = const Value.absent(),
@@ -575,14 +602,17 @@ class HabitsTableCompanion extends UpdateCompanion<Habit> {
     required String title,
     this.isCompleted = const Value.absent(),
     this.createdAt = const Value.absent(),
+    required String color,
   })  : userId = Value(userId),
-        title = Value(title);
+        title = Value(title),
+        color = Value(color);
   static Insertable<Habit> custom({
     Expression<int>? id,
     Expression<int>? userId,
     Expression<String>? title,
     Expression<bool>? isCompleted,
     Expression<DateTime>? createdAt,
+    Expression<String>? color,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -590,6 +620,7 @@ class HabitsTableCompanion extends UpdateCompanion<Habit> {
       if (title != null) 'title': title,
       if (isCompleted != null) 'is_completed': isCompleted,
       if (createdAt != null) 'created_at': createdAt,
+      if (color != null) 'color': color,
     });
   }
 
@@ -598,13 +629,15 @@ class HabitsTableCompanion extends UpdateCompanion<Habit> {
       Value<int>? userId,
       Value<String>? title,
       Value<bool>? isCompleted,
-      Value<DateTime>? createdAt}) {
+      Value<DateTime>? createdAt,
+      Value<String>? color}) {
     return HabitsTableCompanion(
       id: id ?? this.id,
       userId: userId ?? this.userId,
       title: title ?? this.title,
       isCompleted: isCompleted ?? this.isCompleted,
       createdAt: createdAt ?? this.createdAt,
+      color: color ?? this.color,
     );
   }
 
@@ -626,6 +659,9 @@ class HabitsTableCompanion extends UpdateCompanion<Habit> {
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
+    if (color.present) {
+      map['color'] = Variable<String>(color.value);
+    }
     return map;
   }
 
@@ -636,7 +672,8 @@ class HabitsTableCompanion extends UpdateCompanion<Habit> {
           ..write('userId: $userId, ')
           ..write('title: $title, ')
           ..write('isCompleted: $isCompleted, ')
-          ..write('createdAt: $createdAt')
+          ..write('createdAt: $createdAt, ')
+          ..write('color: $color')
           ..write(')'))
         .toString();
   }
@@ -934,6 +971,7 @@ typedef $$HabitsTableTableCreateCompanionBuilder = HabitsTableCompanion
   required String title,
   Value<bool> isCompleted,
   Value<DateTime> createdAt,
+  required String color,
 });
 typedef $$HabitsTableTableUpdateCompanionBuilder = HabitsTableCompanion
     Function({
@@ -942,6 +980,7 @@ typedef $$HabitsTableTableUpdateCompanionBuilder = HabitsTableCompanion
   Value<String> title,
   Value<bool> isCompleted,
   Value<DateTime> createdAt,
+  Value<String> color,
 });
 
 final class $$HabitsTableTableReferences
@@ -985,6 +1024,9 @@ class $$HabitsTableTableFilterComposer
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
       column: $table.createdAt, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<String> get color => $composableBuilder(
+      column: $table.color, builder: (column) => ColumnFilters(column));
+
   $$UsersTableTableFilterComposer get userId {
     final $$UsersTableTableFilterComposer composer = $composerBuilder(
         composer: this,
@@ -1027,6 +1069,9 @@ class $$HabitsTableTableOrderingComposer
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
       column: $table.createdAt, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<String> get color => $composableBuilder(
+      column: $table.color, builder: (column) => ColumnOrderings(column));
+
   $$UsersTableTableOrderingComposer get userId {
     final $$UsersTableTableOrderingComposer composer = $composerBuilder(
         composer: this,
@@ -1068,6 +1113,9 @@ class $$HabitsTableTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<String> get color =>
+      $composableBuilder(column: $table.color, builder: (column) => column);
 
   $$UsersTableTableAnnotationComposer get userId {
     final $$UsersTableTableAnnotationComposer composer = $composerBuilder(
@@ -1118,6 +1166,7 @@ class $$HabitsTableTableTableManager extends RootTableManager<
             Value<String> title = const Value.absent(),
             Value<bool> isCompleted = const Value.absent(),
             Value<DateTime> createdAt = const Value.absent(),
+            Value<String> color = const Value.absent(),
           }) =>
               HabitsTableCompanion(
             id: id,
@@ -1125,6 +1174,7 @@ class $$HabitsTableTableTableManager extends RootTableManager<
             title: title,
             isCompleted: isCompleted,
             createdAt: createdAt,
+            color: color,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -1132,6 +1182,7 @@ class $$HabitsTableTableTableManager extends RootTableManager<
             required String title,
             Value<bool> isCompleted = const Value.absent(),
             Value<DateTime> createdAt = const Value.absent(),
+            required String color,
           }) =>
               HabitsTableCompanion.insert(
             id: id,
@@ -1139,6 +1190,7 @@ class $$HabitsTableTableTableManager extends RootTableManager<
             title: title,
             isCompleted: isCompleted,
             createdAt: createdAt,
+            color: color,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:drift/drift.dart';
 import '../app_database/app_database.dart';
 
@@ -12,7 +14,7 @@ class RegistrationService {
     required String password,
     double? age,
     String? country,
-    List<String>? habits,
+    Map<String, String>? habits,
   }) async {
     // Insert/update user
     final userCompanion = UsersTableCompanion.insert(
@@ -27,11 +29,12 @@ class RegistrationService {
 
     // Insert habits if provided
     if (habits != null) {
-      for (final h in habits) {
+      for (final entry in habits.entries) {
         await db.insertHabit(
           HabitsTableCompanion.insert(
             userId: userId,
-            title: h,
+            title: entry.key,
+            color: entry.value,
           ),
         );
       }
@@ -43,7 +46,7 @@ class RegistrationService {
     final user = await db.getUserByUsername(username);
     if (user == null) return null;
 
-    final habits = await db.getHabitsForUsername(username);
+    final habits = await db.getHabitsByID(user.id);
     return {
       "user": user,
       "habits": habits,

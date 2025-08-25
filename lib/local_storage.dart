@@ -55,6 +55,8 @@ class LocalStorage {
 
   String? getCountry() => prefs.getString('country');
 
+  int? getUserID() => prefs.getInt('userID');
+
   List<String>? getHabits() => prefs.getStringList('habits');
 
 
@@ -77,4 +79,8 @@ class LocalStorage {
     }
     return user;
   }
+
+
+  Future<void> setUserID(int id) async => await prefs.setInt('userID', id);
+
 }

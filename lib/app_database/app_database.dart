@@ -13,12 +13,11 @@ class AppDatabase extends _$AppDatabase {
   @override
   int get schemaVersion => 1;
 
-  // ---------------- USERS ----------------
   Future<int> insertUser(UsersTableCompanion user) =>
       into(usersTable).insertOnConflictUpdate(user);
 
   Future<User?> getUserByUsername(String username) =>
-      (select(usersTable)..where((t) => t.username.equals(username)))
+      (select(usersTable)..where((t) => t.username.trim().equals(username)))
           .getSingleOrNull();
 
   Future<List<User>> getAllUsers() => select(usersTable).get();
@@ -32,12 +31,9 @@ class AppDatabase extends _$AppDatabase {
   Future<int> insertHabit(HabitsTableCompanion habit) =>
       into(habitsTable).insert(habit);
 
-  Future<List<Habit>> getHabitsForUsername(String username) async {
-    final user =
-    await (select(usersTable)..where((t) => t.username.equals(username)))
-        .getSingleOrNull();
-    if (user == null) return [];
-    return (select(habitsTable)..where((h) => h.userId.equals(user.id))).get();
+  Future<List<Habit>> getHabitsByID(int id) async {
+
+    return (select(habitsTable)..where((h) => h.userId.equals(id))).get();
   }
 
   Future<int> deleteHabit(int id) =>
