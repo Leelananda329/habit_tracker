@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6f8a1a8-61d0-4f80-b065-edc8ca002152" name="Changes" comment="evidence and add habit screen">
-      <change afterPath="$PROJECT_DIR$/Develop User Stories/evidence-settings-screen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Develop User Stories/evidence_menu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/personal_info_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/reports_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/notificatons_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/arm64-v8a/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/arm64-v8a/configure_fingerprint.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/armeabi-v7a/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/armeabi-v7a/configure_fingerprint.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/x86/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/x86/configure_fingerprint.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/x86_64/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/x86_64/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app_database/app_database.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app_database/app_database.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app_utils/app_utils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app_utils/app_utils.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/habits/habit_tracker_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/habits/habit_tracker_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/local_storage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/local_storage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +158,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/habits/habit_tracker_screen.dart</url>
-          <line>143</line>
+          <line>148</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

@@ -9,6 +9,7 @@ import 'package:habit_tracker/services/registration_service.dart';
 
 import '../app_colors/app_color.dart';
 import '../login_screen.dart';
+import '../notificatons_screen.dart';
 import '../personal_info_screen.dart';
 import 'habit_details_screen.dart';
 
@@ -132,9 +133,13 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
 
               },
             ),
-            const ListTile(
-              leading: Icon(Icons.notifications),
-              title: Text('Notifications'),
+            ListTile(
+              leading: const Icon(Icons.notifications),
+              title: const Text('Notifications'),
+              onTap: (){
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>NotificationsScreen()));
+              },
             ),
             ListTile(
               leading: const Icon(Icons.logout),
