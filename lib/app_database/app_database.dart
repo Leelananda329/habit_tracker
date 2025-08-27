@@ -19,6 +19,9 @@ class AppDatabase extends _$AppDatabase {
   Future<User?> getUserByUsername(String username) =>
       (select(usersTable)..where((t) => t.username.trim().equals(username)))
           .getSingleOrNull();
+  Future<User?> getUserById(int userID) =>
+      (select(usersTable)..where((t) => t.id.equals(userID)))
+          .getSingleOrNull();
 
   Future<List<User>> getAllUsers() => select(usersTable).get();
 

@@ -4,9 +4,12 @@ import 'package:habit_tracker/app_database/app_database.dart';
 import 'package:habit_tracker/constants/app_constants.dart';
 import 'package:habit_tracker/habits/add_habit_screen.dart';
 import 'package:habit_tracker/local_storage.dart';
+import 'package:habit_tracker/reports_screen.dart';
 import 'package:habit_tracker/services/registration_service.dart';
 
 import '../app_colors/app_color.dart';
+import '../login_screen.dart';
+import '../personal_info_screen.dart';
 import 'habit_details_screen.dart';
 
 class HabitTrackerScreen extends StatefulWidget {
@@ -77,7 +80,7 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-          children: <Widget>[
+          children: [
             DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue.shade700,
@@ -91,57 +94,55 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.list),
-              title: const Text(AppConstants.habits),
+              leading: const Icon(Icons.settings),
+              title: const Text('Configure'),
               onTap: () {
-                // Navigate to home or close drawer
                 Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AddHabitScreen(),
+                  ),
+                ).then((updatedHabits) {
+                  getSelectedHobits(); // Reload data after returning
+                });
               },
             ),
             ListTile(
-              leading: Icon(Icons.person),
-              title: Text(AppConstants.personalInfo),
+              leading: const Icon(Icons.person),
+              title: const Text(AppConstants.personalInfo),
               onTap: () {
-                // Navigate to settings page
                 Navigator.pop(context);
-                // Example: Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const PersonalInfoScreen()))
+                    .then((updatedHabits) {
+                  getSelectedHobits(); // Reload data after returning
+                });
+
               },
             ),
             ListTile(
-              leading: Icon(Icons.book),
-              title: Text(AppConstants.reports),
+              leading: const Icon(Icons.analytics),
+              title: const Text('Reports'),
               onTap: () {
-                // Navigate to settings page
                 Navigator.pop(context);
-                // Example: Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const ReportsScreen()))
+                    .then((updatedHabits) {
+                  getSelectedHobits(); // Reload data after returning
+                });;
+
               },
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(Icons.notifications),
-              title: Text(AppConstants.notification),
-              onTap: () {
-                // Navigate to settings page
-                Navigator.pop(context);
-                // Example: Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
-              },
+              title: Text('Notifications'),
             ),
             ListTile(
-              leading: Icon(Icons.settings),
-              title: Text(AppConstants.settings),
-              onTap: () {
-                // Navigate to settings page
-                Navigator.pop(context);
-                // Example: Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+              leading: const Icon(Icons.logout),
+              title: const Text('Sign Out'),
+              onTap: (){
+                _signOut(context);
               },
-            ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text(AppConstants.Logout),
-              onTap: () {
-                // Handle logout
-                Navigator.pop(context);
-                // Example: Perform logout action and navigate to login screen
-              },
+
             ),
           ],
         ),
@@ -329,6 +330,15 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
     'Deep Purple': Colors.deepPurple,
   };
 
+  void _signOut(BuildContext context) async {
+
+    await LocalStorage().clear();
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+    );
+  }
   Future<void> getSelectedHobits() async {
 
 

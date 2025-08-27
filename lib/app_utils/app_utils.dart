@@ -42,4 +42,9 @@ class AppUtils{
   void hideProgressDialog(BuildContext context) {
     Navigator.of(context, rootNavigator: true).pop();
   }
+
+  static bool isValidEmail(String trim) {
+    return RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(trim);
+  }
 }

@@ -83,4 +83,17 @@ class LocalStorage {
 
   Future<void> setUserID(int id) async => await prefs.setInt('userID', id);
 
+  Future<void> setWeeklyData(String jsonEncode) async {
+
+    prefs.setString('weeklyData', jsonEncode);
+  }
+
+  String? getWeeklyData() => prefs.getString('weeklyData');
+
+  Future<void> clear() async {
+    prefs.clear();
+
+  }
+
+
 }
