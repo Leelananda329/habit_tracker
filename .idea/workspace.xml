@@ -11,15 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c6f8a1a8-61d0-4f80-b065-edc8ca002152" name="Changes" comment="naming convention">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Develop User Stories/evidence_menu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Develop User Stories/figma_evidence.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Develop User Stories/login_screen_evidence.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/arm64-v8a/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/arm64-v8a/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/armeabi-v7a/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/armeabi-v7a/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/x86/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/x86/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/x86_64/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/x86_64/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/habits/habit_details_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/habits/habit_details_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/habits/habit_tracker_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/habits/habit_tracker_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Develop User Stories/evidence-settings-screen.png" beforeDir="false" afterPath="$PROJECT_DIR$/Develop User Stories/evidence-settings-screen.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,16 +170,5 @@
     <MESSAGE value="settings screen and setup environment for upload process" />
     <MESSAGE value="naming convention" />
     <option name="LAST_COMMIT_MESSAGE" value="naming convention" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/habits/habit_tracker_screen.dart</url>
-          <line>163</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
