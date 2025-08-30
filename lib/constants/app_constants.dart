@@ -24,4 +24,9 @@ class AppConstants{
   static const String enterPassword='Enter Password';
   static const String notification='Notification';
 
+  static const String register='Register';
+  static const String profileInfo='Profile Info';
+  static const String details='Details';
+  static const String weeklyReports='Weekly Report';
+
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/local_storage.dart';
+import 'package:habit_tracker/services/service.dart';
 import 'app_database/app_database.dart';
 import 'app_utils/app_utils.dart';
 import 'habits/habit_tracker_screen.dart';
@@ -21,7 +22,9 @@ class _LoginScreenState extends State<LoginScreen> {
   final String defaultUsername = 'testuser';
   final String defaultPassword = 'password123';
   bool _obscurePassword = true;
-  final db = AppDatabase();
+  bool _rememberMe = false;
+
+  DatabaseServices dataService = DatabaseServices();
 
 
 
@@ -30,13 +33,15 @@ class _LoginScreenState extends State<LoginScreen> {
     final username = _usernameController.text.trim();
     final password = _passwordController.text.trim();
 
-    final user = await db.getUserByUsername(username);
+    final user = await dataService.getUserByName(username);
     print("user details ${jsonEncode(user)}");
     if (username == user?.username.trim() && password == user?.password.trim()) {
       LocalStorage storage=LocalStorage();
       storage.setName(user?.name??'');
       storage.setUserID(user?.id??-1);
-      await storage.setUsername(username);
+      storage.setUsername(username);
+      storage.setIsSignIn(_rememberMe);
+
       AppUtils().hideProgressDialog(context);
       Navigator.pushReplacement(
         context,
@@ -123,6 +128,33 @@ class _LoginScreenState extends State<LoginScreen> {
                           horizontal: 20, vertical: 15),
                     ),
                   ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Checkbox(
+                      value: _rememberMe,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _rememberMe = value!;
+                        });
+                      },
+                      activeColor: Colors.white,
+                      checkColor: Colors.blue.shade700,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4.0), // Adjusted for better visuals
+                      ),
+                      side: WidgetStateBorderSide.resolveWith(
+                        (states) => BorderSide(width: 2.0, color: states.contains(MaterialState.selected) ? Colors.blue.shade700 : Colors.white),
+
+                      ),
+                    ),
+                    const Text(
+                      'Remember me',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 20),
                 Align(

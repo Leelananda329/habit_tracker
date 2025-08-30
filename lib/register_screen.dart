@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:habit_tracker/services/registration_service.dart';
+import 'package:habit_tracker/services/service.dart';
+import 'constants/app_constants.dart';
 import 'country_list.dart';
 import 'habits/habit_tracker_screen.dart';
 import 'local_storage.dart';
@@ -103,7 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     storage.setUsername(name);
 
 
-    final service = RegistrationService();
+    final service = DatabaseServices();
 
     await service.registerUser(
       name: name,
@@ -115,8 +116,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
 
     final result = await service.getUserWithHabits(username);
-    print("User: ${result?['user']}");
-    print("Habits: ${result?['habits']}");
+
     if(result!=null) {
       Navigator.pushReplacement(
         context,
@@ -133,7 +133,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       appBar: AppBar(
         backgroundColor: Colors.blue.shade700,
         title: const Text(
-          'Register',
+          AppConstants.register,
           style: TextStyle(
             fontSize: 32,
             color: Colors.white,

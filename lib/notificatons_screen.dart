@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/app_database/app_database.dart';
+import 'package:habit_tracker/services/service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -20,7 +21,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   List<Habit> allHabits = [];
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  AppDatabase db=AppDatabase();
+  DatabaseServices dataService=DatabaseServices();
   int userID=-1;
   @override
   void initState() {
@@ -45,7 +46,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   }
   Future<void> getHobbits() async {
 
-    final  habits = await db.getHabitsByID(userID);
+    final  habits = await dataService.getHabitById(userID);
      setState(()  {
       allHabits=habits;
      });
@@ -118,7 +119,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue.shade700,
-        title: Text('Notifications'),
+        title: Text('Notifications',style: TextStyle( color: Colors.white,fontSize: 16 ),),
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: Icon(Icons.arrow_back,color: Colors.white,)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -195,19 +199,21 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               }).toList(),
             ),
             Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                // Use the _sendTestNotification method to trigger the notification
-                _sendTestNotification();
-              },
-              child: Text('Send Test Notification'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue.shade700,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Use the _sendTestNotification method to trigger the notification
+                  _sendTestNotification();
+                },
+                child: Text('Send Test Notification'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue.shade700,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               ),
             ),
           ],

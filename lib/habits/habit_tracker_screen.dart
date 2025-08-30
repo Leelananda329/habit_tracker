@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:math';
 import 'package:habit_tracker/app_database/app_database.dart';
 import 'package:habit_tracker/constants/app_constants.dart';
 import 'package:habit_tracker/habits/add_habit_screen.dart';
 import 'package:habit_tracker/local_storage.dart';
 import 'package:habit_tracker/reports_screen.dart';
-import 'package:habit_tracker/services/registration_service.dart';
+import 'package:habit_tracker/services/service.dart';
 
 import '../app_colors/app_color.dart';
 import '../login_screen.dart';
@@ -23,14 +27,14 @@ class HabitTrackerScreen extends StatefulWidget {
 }
 
 class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
-  
+
   
   String name = '';
   String userName = '';
 
   List<Habit>? todoHabitsData;
   List<Habit>? completedHobitData;
-  final AppDatabase db = AppDatabase();
+   DatabaseServices dataService = DatabaseServices();
 
   int userId=-1;
 
@@ -48,25 +52,32 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
   Future<void> _saveHabits(Habit habit, {required bool completed}) async {
     // Update the habit's completion status
     final updatedHabit = habit.copyWith(isCompleted: completed);
-    await db.updateHabit(updatedHabit);
+    await dataService.updateHabit(updatedHabit);
     // Refresh the lists after the database update
     await getSelectedHobits(); // This will call setState
   }
 
-  
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue.shade700,
-        title: Text(
-          name.isNotEmpty ? name : 'Loading...',
-          style: const TextStyle(
-            fontSize: 24,
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+        title: Row(
+          children: [
+            Image.asset(
+              'assets/icon/habit_icon.png', width: 30, height: 30,),
+            SizedBox(width: 10,),
+            Text(
+              name.isNotEmpty ? name : 'Loading...',
+              style: const TextStyle(
+                fontSize: 24,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
         iconTheme: const IconThemeData(color: Colors.white), // Ensure drawer icon is white
 
@@ -74,8 +85,12 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
             IconButton(
               icon: const Icon(Icons.person),
               onPressed: () {
-                // Handle logout
-                Navigator.pop(context);})
+
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const PersonalInfoScreen()))
+                    .then((updatedHabits) {
+                  getSelectedHobits(); // Reload data after returning
+                });
+              })
           ],
       ),
       drawer: Drawer(
@@ -171,55 +186,55 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
                 ),
                 todoHabitsData?.isEmpty==true
                     ? Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Hello $name ',
-                              style: const TextStyle(fontSize: 18, color:Color(AppColor.naviBlue) ),
-                            ),
-                            const Text(
-                              'Use the + button to create some habits!',
-                              style: TextStyle(fontSize: 18, color: Colors.grey),
-                            ),
-                          ],
-                        ),
-                      )
-                    : Expanded(
-                        child: ListView.builder(
-                          padding: const EdgeInsets.all(16.0),
-                          itemCount: todoHabitsData?.length??0,
-                          itemBuilder: (context, index) {
-                            Habit habit = todoHabitsData![index];
-                            
-                            return Dismissible(
-                              key: Key(habit.id.toString()),
-                              direction: DismissDirection.endToStart,
-                              onDismissed: (direction) {
-                                // No need to call setState here, _saveHabits will handle it
-                                _saveHabits(habit, completed: true);
-                              },
-                              background: Container(
-                                color: Colors.green,
-                                alignment: Alignment.centerRight,
-                                padding: const EdgeInsets.symmetric(horizontal: 20),
-                                child: const Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      'Swipe to Complete',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    SizedBox(width: 10),
-                                    Icon(Icons.check, color: Colors.white),
-                                  ],
-                                ),
-                              ),
-                              child: _buildHabitCard(habit),
-                            );
-                          },
-                        ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Hello $name ',
+                        style: const TextStyle(fontSize: 18, color:Color(AppColor.naviBlue) ),
                       ),
+                      const Text(
+                        'Use the + button to create some habits!',
+                        style: TextStyle(fontSize: 18, color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                )
+                    : Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(16.0),
+                    itemCount: todoHabitsData?.length??0,
+                    itemBuilder: (context, index) {
+                      Habit habit = todoHabitsData![index];
+
+                      return Dismissible(
+                        key: Key(habit.id.toString()),
+                        direction: DismissDirection.endToStart,
+                        onDismissed: (direction) {
+                          // No need to call setState here, _saveHabits will handle it
+                          _saveHabits(habit, completed: true);
+                        },
+                        background: Container(
+                          color: Colors.green,
+                          alignment: Alignment.centerRight,
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                'Swipe to Complete',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              SizedBox(width: 10),
+                              Icon(Icons.check, color: Colors.white),
+                            ],
+                          ),
+                        ),
+                        child: _buildHabitCard(habit),
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ),
@@ -239,22 +254,22 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
                 ),
                 todoHabitsData?.isEmpty==true
                     ? const Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Text(
-                          'Swipe right on an activity to mark as done.',
-                          style: TextStyle(fontSize: 16, color: Colors.grey),
-                        ),
-                      )
+                  padding: EdgeInsets.all(16.0),
+                  child: Text(
+                    'Swipe right on an activity to mark as done.',
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                  ),
+                )
                     : Expanded(
-                        child: ListView.builder(
+                  child: ListView.builder(
                     padding: const EdgeInsets.all(16.0),
-                          itemCount: completedHobitData?.length??0,
+                    itemCount: completedHobitData?.length??0,
                     itemBuilder: (context, index) {
-                              Habit habit = completedHobitData![index];
-                      
+                      Habit habit = completedHobitData![index];
+
                       return Dismissible(
                         key: Key(habit.id.toString()),
-                              direction: DismissDirection.startToEnd,
+                        direction: DismissDirection.startToEnd,
                         onDismissed: (direction) {
                           // No need to call setState here, _saveHabits will handle it
                           _saveHabits(habit, completed: false);
@@ -274,7 +289,7 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
                             ],
                           ),
                         ),
-                              child: _buildHabitCard(habit,),
+                        child: _buildHabitCard(habit,),
                       );
                     },
                   ),
@@ -335,6 +350,8 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
     'Deep Purple': Colors.deepPurple,
   };
 
+
+
   void _signOut(BuildContext context) async {
 
     await LocalStorage().clear();
@@ -347,7 +364,7 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
   Future<void> getSelectedHobits() async {
 
 
-    final habits = await db.getHabitsByID(userId);
+    final habits = await dataService.getHabitById(userId);
     if (habits != null) {
       // Assuming 'habits' is a List<Habit>
       setState(() {
@@ -358,4 +375,5 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
       print("Habits: $todoHabitsData");
     }
   }
+
 }

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:habit_tracker/app_database/app_database.dart';
 import 'package:habit_tracker/app_utils/app_utils.dart';
+import 'package:habit_tracker/services/service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'constants/app_constants.dart';
 import 'country_list.dart';
 import 'local_storage.dart';
 
@@ -20,7 +22,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
   double _age = 25;
   String _country = 'India';
   List<String> _countries = [];
-  AppDatabase db = AppDatabase();
+  DatabaseServices dataService = DatabaseServices();
   int userID=-1;
 
   User? userDetail;
@@ -52,7 +54,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
 
 
     userID=LocalStorage().getUserID()??-1;
-    userDetail= await db.getUserById(userID);
+    userDetail= await dataService.getUserById(userID);
 
     setState(() {
 
@@ -76,7 +78,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
     );
 
 
-    await db.updateUser(updatedUser);
+    await dataService.updateUser(updatedUser);
 
     LocalStorage().setUsername( _usernameController.text);
     LocalStorage().setName( _nameController.text);
@@ -99,7 +101,11 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue.shade700,
-        title: const Text('Personal Info'),
+        title: const Text(AppConstants.profileInfo,style: TextStyle(color: Colors.white,fontSize: 16),),
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: Icon(Icons.arrow_back,color: Colors.white,)),
+
       ),
       body:
       SingleChildScrollView(

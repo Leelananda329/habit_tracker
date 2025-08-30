@@ -59,28 +59,6 @@ class LocalStorage {
 
   List<String>? getHabits() => prefs.getStringList('habits');
 
-
-
-  Future<List<User>?> getAllUsers() async {
-    // Fetch only users
-    final users = await db.getAllUsers();
-
-    for (final u in users) {
-      print("Name: ${u.name}, Username: ${u.username}, Country: ${u.country}");
-    }
-    return users;
-  }
-
-  Future<User?> getUserDetails(String username) async {
-    // Fetch only habits
-    final user = await db.getUserByUsername(username);
-    if (user != null) {
-      print("Found user: ${user.name}, ${user.country}");
-    }
-    return user;
-  }
-
-
   Future<void> setUserID(int id) async => await prefs.setInt('userID', id);
 
   Future<void> setWeeklyData(String jsonEncode) async {
@@ -94,6 +72,16 @@ class LocalStorage {
     prefs.clear();
 
   }
+
+  void setIsSignIn(bool rememberMe) {
+
+    prefs.setBool('isSignIn', rememberMe);
+  }
+
+  bool? getIsSignIn() {
+    return prefs.getBool('isSignIn');
+  }
+
 
 
 }

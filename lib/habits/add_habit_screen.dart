@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/services/service.dart';
 
 import '../app_database/app_database.dart';
 import '../local_storage.dart';
@@ -12,7 +13,7 @@ class AddHabitScreen extends StatefulWidget {
 
 class _AddHabitScreenState extends State<AddHabitScreen> {
 
-  final AppDatabase db = AppDatabase();
+  final DatabaseServices dataService = DatabaseServices();
   final TextEditingController _habitController = TextEditingController();
   Color selectedColor = Colors.amber; // Default color
 
@@ -50,7 +51,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
   Future<void> _loadHabits() async {
 
 
-    final habits = await db.getHabitsByID(userId);
+    final habits = await dataService.getHabitById(userId);
     if (habits != null) {
       // Assuming 'habits' is a List<Habit>
       setState(() {
@@ -59,7 +60,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
         completedHabitsMap=habits.where((item)=>item.isCompleted==true).toList();
       });
 
-      print("Habits: $selectedHabitsMap");
+
     }
   }
   Future<void> _saveHabits() async {
@@ -74,7 +75,10 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue.shade700,
-        title: Text('Configure Habits'),
+        title: Text('Configure Habits',style: TextStyle( color: Colors.white,fontSize: 16 ),),
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: Icon(Icons.arrow_back,color: Colors.white,)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -164,7 +168,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                             icon: const Icon(Icons.delete, color: Colors.red),
                             onPressed: () async {
                               // Remove habit from the database
-                              await db.deleteHabit(habit.id);
+                              await dataService.deleteHabitById(habit.id);
                               // Reload habits from the database to reflect changes
                               setState(() {
                                 _loadHabits();
@@ -195,12 +199,10 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
       }
 
 
-      await db.insertHabit(
-        HabitsTableCompanion.insert(
-          userId: userId,
-          title: habitName,
-          color: selectedColorName,
-        ),
+      await dataService.insertHobby(
+        userId: userId,
+        title: habitName,
+        color: selectedColorName,
       );
 
 

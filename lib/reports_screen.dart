@@ -3,7 +3,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/app_database/app_database.dart';
+import 'package:habit_tracker/constants/app_constants.dart';
 import 'package:habit_tracker/local_storage.dart';
+import 'package:habit_tracker/services/service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ReportsScreen extends StatefulWidget {
@@ -27,7 +29,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
   ];
 
   int userID=-1;
-  AppDatabase db=AppDatabase();
+  DatabaseServices dataService=DatabaseServices();
   @override
   void initState() {
     super.initState();
@@ -37,7 +39,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
 
   Future<void> _loadWeeklyData() async {
 
-    selectedHabits = await db.getHabitsByID(userID)??[];
+    selectedHabits = await dataService.getHabitById(userID)??[];
 
     // If no habits are selected, reset weeklyData
     if (selectedHabits.isEmpty) {
@@ -77,10 +79,14 @@ class _ReportsScreenState extends State<ReportsScreen> {
       appBar: AppBar(
         backgroundColor: Colors.blue.shade700,
         title: const Text(
-          'Weekly Report',
+          AppConstants.weeklyReports,
           style: TextStyle(
-              fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold),
+              fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+
         ),
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: Icon(Icons.arrow_back,color: Colors.white,)),
       ),
       body: weeklyData.isEmpty
           ? const Center(

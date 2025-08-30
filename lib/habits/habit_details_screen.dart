@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/app_database/app_database.dart';
 
+import '../constants/app_constants.dart';
+
 class HabitDetailsScreen extends StatefulWidget {
   final Habit habit;
 
@@ -15,7 +17,10 @@ class _HabitDetailsScreenState extends State<HabitDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Details'),
+        title: Text(AppConstants.details,style: TextStyle( color: Colors.white,fontSize: 16 ),),
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: Icon(Icons.arrow_back,color: Colors.white,)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
