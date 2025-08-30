@@ -17,6 +17,7 @@ class _HabitDetailsScreenState extends State<HabitDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue.shade700,
         title: Text(AppConstants.details,style: TextStyle( color: Colors.white,fontSize: 16 ),),
         leading: IconButton(onPressed: (){
           Navigator.pop(context);

@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:math';
 import 'package:habit_tracker/app_database/app_database.dart';
 import 'package:habit_tracker/constants/app_constants.dart';
+import 'package:habit_tracker/drawer_menu_items.dart';
 import 'package:habit_tracker/habits/add_habit_screen.dart';
 import 'package:habit_tracker/local_storage.dart';
 import 'package:habit_tracker/reports_screen.dart';
@@ -94,78 +95,7 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
           ],
       ),
       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue.shade700,
-              ),
-              child: const Text(
-                AppConstants.menu,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Configure'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AddHabitScreen(),
-                  ),
-                ).then((updatedHabits) {
-                  getSelectedHobits(); // Reload data after returning
-                });
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.person),
-              title: const Text(AppConstants.personalInfo),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const PersonalInfoScreen()))
-                    .then((updatedHabits) {
-                  getSelectedHobits(); // Reload data after returning
-                });
-
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.analytics),
-              title: const Text('Reports'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const ReportsScreen()))
-                    .then((updatedHabits) {
-                  getSelectedHobits(); // Reload data after returning
-                });;
-
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.notifications),
-              title: const Text('Notifications'),
-              onTap: (){
-                Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>NotificationsScreen()));
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Sign Out'),
-              onTap: (){
-                _signOut(context);
-              },
-
-            ),
-          ],
-        ),
+        child: DrawerMenuItems(getSelectedHobits: getSelectedHobits,),
 
       ),
 
@@ -352,19 +282,11 @@ class _HabitTrackerScreenState extends State<HabitTrackerScreen> {
 
 
 
-  void _signOut(BuildContext context) async {
-
-    await LocalStorage().clear();
-
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
-  }
   Future<void> getSelectedHobits() async {
 
 
     final habits = await dataService.getHabitById(userId);
+
     if (habits != null) {
       // Assuming 'habits' is a List<Habit>
       setState(() {

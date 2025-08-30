@@ -10,25 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6f8a1a8-61d0-4f80-b065-edc8ca002152" name="Changes" comment="naming convention">
-      <change afterPath="$PROJECT_DIR$/lib/splash_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Develop User Stories/evidence_menu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Develop User Stories/figma_evidence.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Develop User Stories/login_screen_evidence.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/arm64-v8a/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/arm64-v8a/configure_fingerprint.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/armeabi-v7a/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/armeabi-v7a/configure_fingerprint.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/x86/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/x86/configure_fingerprint.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/x86_64/configure_fingerprint.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/.cxx/Debug/6jz40w6n/x86_64/configure_fingerprint.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/constants/app_constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/constants/app_constants.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/habits/add_habit_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/habits/add_habit_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/habits/habit_details_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/habits/habit_details_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/habits/habit_tracker_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/habits/habit_tracker_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/local_storage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/local_storage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/login_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/notificatons_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/notificatons_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/personal_info_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/personal_info_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/register_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/register_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/reports_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/reports_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/registration_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/service.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,24 +75,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;ScreenshotViewer.SavePath&quot;: &quot;/Users/LeelanandaReddy/Desktop&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/LeelanandaReddy/Documents/Flutter/habit_tracker/Develop User Stories&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Flutter.main.dart.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "ScreenshotViewer.SavePath": "/Users/LeelanandaReddy/Documents/Flutter/habit_tracker/Develop User Stories",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
+    "io.flutter.reload.alreadyRun": "true",
+    "last_opened_file_path": "/Users/LeelanandaReddy/Documents/Flutter/habit_tracker/Develop User Stories",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Develop User Stories" />
@@ -152,7 +143,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756388935496</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="naming convention">
+      <option name="closed" value="true" />
+      <created>1756523884658</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1756523884659</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
