@@ -10,8 +10,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6f8a1a8-61d0-4f80-b065-edc8ca002152" name="Changes" comment="naming convention">
+      <change afterPath="$PROJECT_DIR$/Develop User Stories/evidence-localstorage-persistence.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Develop User Stories/evidence-settings-screen.png" beforeDir="false" afterPath="$PROJECT_DIR$/Develop User Stories/evidence-settings-screen.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Develop User Stories/ evidence-api-ux.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Develop User Stories/evidence-api-ux.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Develop User Stories/evidence-menu-icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/Develop User Stories/evidence-menu-icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Develop User Stories/evidence-notification-alert.png" beforeDir="false" afterPath="$PROJECT_DIR$/Develop User Stories/evidence-notification-alert.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Develop User Stories/evidence-notification-configure.png" beforeDir="false" afterPath="$PROJECT_DIR$/Develop User Stories/evidence-notification-configure.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Develop User Stories/evidence-settings-screen.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Develop User Stories/home_screen_evidence.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +150,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756523884659</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="naming convention">
+      <option name="closed" value="true" />
+      <created>1756568073964</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1756568073964</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
